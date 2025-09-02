@@ -59,10 +59,11 @@ int parse_input(char *str)
 int parsesum()
 {   
     int pro1 = parseproduct();
+    int pro2;
     while(*s == '+')
     {
         s++;
-        int pro2 = parseproduct();
+        pro2 = parseproduct();
         pro1 = pro1 + pro2;
     }
     return (pro1);
@@ -71,10 +72,11 @@ int parsesum()
 int parseproduct()
 {
     int fac1 = parsefactor();
+    int fac2;
     while (*s == '*')
     {
         s++;
-        int fac2 = parsefactor();
+        fac2 = parsefactor();
         fac1 = fac1 * fac2;
     }
     return fac1;
