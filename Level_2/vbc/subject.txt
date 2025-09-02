@@ -4,7 +4,8 @@ Write a program that print the result of a math expression given as argument.
 You must handle operations '+' '*' and the parenthesis.
 You don't have to handle whitespaces in the expression.
 All the values in the expression will be between 0 and 9 included.
-In case of unexpected symbol, you will print "Unexpected token '%c'\n" and exit with code 1. (If the symbol is the end of input you will print: "Unexpexted end of input\n").
+In case of unexpected symbol, you will print "Unexpected token '%c'\n" and exit with code 1. 
+(If the symbol is the end of input you will print: "Unexpexted end of input\n").
 This rule also apply in case you find an unexpected '(' or ')'.
 In case of syscall failure, you will exit with 1.
 

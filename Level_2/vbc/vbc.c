@@ -8,101 +8,88 @@ int parseproduct();
 int parsefactor();
 
 
-void unexpected(char c)
+void    unexpected(char c)
 {
-    if (c == 'x')
-        printf("Unexpected end of input\n");
-    else
+    if (c)
         printf("Unexpected token '%c'\n", c);
+    else
+        printf("Unexpected end of file\n");
 }
 
-int parse_input(char *str)
+int check_input(char *str)
 {
+    int par = 0;
     int i = 0;
-    int parentese = 0;
     while (str[i])
     {
         if (str[i] == '(')
-            parentese++;
+            par++;
         if (str[i] == ')')
-            parentese--;
+            par--;
         i++;
     }
-    if (parentese > 0)
-    {
-        unexpected('(');
-        return 1;
-    }
-    else if (parentese < 0)
-    {
-        unexpected(')');
-        return 1;
-    }
+    if (par > 0)
+        return (unexpected('('), 1);
+    else if (par < 0)
+        return (unexpected(')'), 1);
     i = 0;
-    while( str[i])
+    while (str[i])
     {
-        if ((str[i] >= '0' && str[i] <= '9') && (str[i + 1] >= '0' && str[i + 1] <= '9'))
-        {
-            unexpected(str[i + 1]);
-            return 1;
-        }
-        if ((str[i] == '*' || str[i] == '+') && str[i + 1] == '\0')
-        {
-            unexpected('x');
-            return 1;
-        }
+        if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
+            return (unexpected(str[i + 1], 1);
+        if ((str[i] == '+' || str[i] == '*') && str[i + 1] == '\0')
+            return (unexpected(0), 1);
         i++;
     }
     return 0;
 }
 
 int parsesum()
-{   
-    int pro1 = parseproduct();
-    int pro2;
-    while(*s == '+')
+{
+    int sum1 = parseproduct();
+    int sum2;
+    while (*s == '+')
     {
         s++;
-        pro2 = parseproduct();
-        pro1 = pro1 + pro2;
+        sum2 = parseproduct();
+        sum1 = sum1 + sum2;
     }
-    return (pro1);
+    return sum1;
 }
 
 int parseproduct()
 {
-    int fac1 = parsefactor();
-    int fac2;
+    int multi1 = parsefactor();
+    int multi2 ;
     while (*s == '*')
     {
         s++;
-        fac2 = parsefactor();
-        fac1 = fac1 * fac2;
+        multi2 = parsefactor();
+        multi1 = multi1 * multi2;
     }
-    return fac1;
+    return multi1;
 }
 
 int parsefactor()
 {
-    int sum;
+    int nb;
     if (*s >= '0' && *s <= '9')
-        return (*s++ -'0');
+        return (*s++ - '0');
     else if (*s == '(')
     {
-        s++; // to skip '('
-        sum = parsesum();
-        s++; // to skip ')'
+        s++;
+        nb = parsesum();
+        s++;
     }
-    return (sum);
+    return nb;
 }
 
-int main(int ac, char **av)
+int main (int ac, char **av)
 {
     (void)ac;
     s = av[1];
-    if (parse_input(av[1]))
+    if (check_input(av[1]))
         return 1;
     int result = parsesum();
-    printf("%d", result);
-    return (0);
+    printf ("%d", result);
 }
