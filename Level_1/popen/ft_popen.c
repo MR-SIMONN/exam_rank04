@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
+#include "../../header.h"
 
 int	ft_popen(const char *file, char *const argv[], char type)
 {

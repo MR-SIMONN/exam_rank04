@@ -1,5 +1,5 @@
 
-#include <stdio.h>
+#include "../../header.h"
 
 char *s;
 
@@ -36,7 +36,7 @@ int check_input(char *str)
     while (str[i])
     {
         if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
-            return (unexpected(str[i + 1], 1);
+            return (unexpected(str[i + 1]), 1);
         if ((str[i] == '+' || str[i] == '*') && str[i + 1] == '\0')
             return (unexpected(0), 1);
         i++;
