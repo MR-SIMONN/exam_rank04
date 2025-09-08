@@ -50,19 +50,12 @@ int picoshell(char **cmds[])
         i++;
     }
 
-    int status;
     for (int j = 0; j < child_count; j++)
     {
-        if (waitpid(child_pids[j], &status, 0) == -1)
+        if (wait(&child_pids[j]) == -1)
             return 1;
-        else if (WIFEXITED(status) && WEXITSTATUS(status))
-            res = 1;
     }
 
-    return res;
+    return 0;
 }
 
-int main (int ac, char **av)
-{
-
-}
