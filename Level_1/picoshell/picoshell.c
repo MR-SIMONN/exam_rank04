@@ -2,7 +2,6 @@
 
 int picoshell(char **cmds[])
 {
-    int res = 0;
     int prev_read_fd = -1;
     int pipe_fd[2];
     pid_t pid;
