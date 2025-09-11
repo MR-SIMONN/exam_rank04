@@ -6,7 +6,6 @@ int	ft_popen(const char *file, char *const argv[], char type)
 		return -1;
 
 	int fd[2];
-
 	pipe(fd);
 	if (type == 'r')
 	{
