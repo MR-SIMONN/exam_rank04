@@ -2,21 +2,37 @@
 
 int picoshell(char **cmds[])
 {
+    if (!cmds)
+        return 1;
     int prev_read_fd = -1;
     int pipe_fd[2];
-    pid_t pid;
+    int pid;
     int i = 0;
-    pid_t child_pids[128];
-    int child_count = 0;
+    int children = 0;
 
+    pipe_fd[0] = -1;
+    pipe_fd[1] = -1;
     while (cmds[i])
     {
         if (cmds[i + 1] && pipe(pipe_fd) == -1)
+        {
+            if (prev_read_fd != -1)
+                close (prev_read_fd);
             return 1;
+        }
 
         pid = fork();
         if (pid == -1)
+        {
+            if (prev_read_fd != -1)
+                close (prev_read_fd);
+            if (cmds[i + 1])
+            {
+                close (pipe_fd[0]);
+                close (pipe_fd[1]);
+            }
             return 1;
+        }
 
         if (pid == 0)
         {
@@ -37,7 +53,7 @@ int picoshell(char **cmds[])
             exit(1);
         }
 
-        child_pids[child_count++] = pid;
+        children++;
 
         if (prev_read_fd != -1)
             close(prev_read_fd);
@@ -48,10 +64,10 @@ int picoshell(char **cmds[])
         }
         i++;
     }
-
-    for (int j = 0; j < child_count; j++)
+    int s;
+    for (int j = 0; j < children; j++)
     {
-        if (wait(&child_pids[j]) == -1)
+        if (wait(&s) == -1)
             return 1;
     }
 
