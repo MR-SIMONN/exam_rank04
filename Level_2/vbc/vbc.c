@@ -8,13 +8,14 @@ int parseproduct();
 int parsefactor();
 
 
-void    unexpected(char c)
+void    unexpected(char c)// you can find this function within the subject directory 
 {
     if (c)
         printf("Unexpected token '%c'\n", c);
     else
         printf("Unexpected end of file\n");
 }
+
 
 int check_input(char *str)
 {
@@ -33,6 +34,7 @@ int check_input(char *str)
     {
         if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
             return (unexpected(str[i + 1]), 1);
+        i++;
     }
     if (par > 0)
         return (unexpected('('), 1);
@@ -76,7 +78,7 @@ int parseproduct()
 
 int parsefactor()
 {
-    int nb;
+    int nb = 0;
     if (*s >= '0' && *s <= '9')
         return (*s++ - '0');
     else if (*s == '(')
@@ -95,5 +97,5 @@ int main (int ac, char **av)
     if (check_input(av[1]))
         return 1;
     int result = parsesum();
-    printf ("%d", result);
+    printf ("%d\n", result);
 }
