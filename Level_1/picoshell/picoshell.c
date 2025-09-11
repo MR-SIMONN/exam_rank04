@@ -64,10 +64,10 @@ int picoshell(char **cmds[])
         }
         i++;
     }
-    int s;
+
     for (int j = 0; j < children; j++)
     {
-        if (wait(&s) == -1)
+        if (wait(NULL) == -1)
             return 1;
     }
 
