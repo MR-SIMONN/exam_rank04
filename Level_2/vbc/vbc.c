@@ -28,6 +28,12 @@ int check_input(char *str)
             par--;
         i++;
     }
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
+            return (unexpected(str[i + 1]), 1);
+    }
     if (par > 0)
         return (unexpected('('), 1);
     else if (par < 0)
@@ -35,8 +41,6 @@ int check_input(char *str)
     i = 0;
     while (str[i])
     {
-        if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
-            return (unexpected(str[i + 1]), 1);
         if ((str[i] == '+' || str[i] == '*') && str[i + 1] == '\0')
             return (unexpected(0), 1);
         i++;
