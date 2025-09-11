@@ -8,7 +8,7 @@ int parseproduct();
 int parsefactor();
 
 
-void    unexpected(char c)// you can find this function within the subject directory 
+void    unexpected(char c)// you can find this function within the subject directory i guess :)
 {
     if (c)
         printf("Unexpected token '%c'\n", c);
