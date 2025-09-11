@@ -13,6 +13,7 @@ void do_nothing(int sig)
 	(void)sig;
 }
 
+
 int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
 {
 	pid_t pid = fork();
