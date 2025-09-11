@@ -10,7 +10,6 @@
 #include <ctype.h>
 #include <string.h>
 
-
 typedef struct	json
 {
 	enum
