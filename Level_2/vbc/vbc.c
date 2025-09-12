@@ -21,32 +21,27 @@ int check_input(char *str)
 {
     int par = 0;
     int i = 0;
+    char last_char = 0;
     while (str[i])
     {
         if (str[i] == '(')
             par++;
         if (str[i] == ')')
             par--;
-        i++;
-    }
-    i = 0;
-    while (str[i])
-    {
         if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
             return (unexpected(str[i + 1]), 1);
+        last_char = str[i];
         i++;
     }
+
     if (par > 0)
         return (unexpected('('), 1);
-    else if (par < 0)
+    if (par < 0)
         return (unexpected(')'), 1);
-    i = 0;
-    while (str[i])
-    {
-        if ((str[i] == '+' || str[i] == '*') && str[i + 1] == '\0')
-            return (unexpected(0), 1);
-        i++;
-    }
+
+    if (last_char == '+' || last_char == '*')
+        return (unexpected(0), 1);
+
     return 0;
 }
 
