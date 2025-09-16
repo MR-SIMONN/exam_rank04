@@ -28,7 +28,7 @@ int check_input(char *str)
             par++;
         if (str[i] == ')')
             par--;
-        if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
+        if (isdigit(str[i]) && isdigit(str[i + 1]))
             return (unexpected(str[i + 1]), 1);
         last_char = str[i];
         i++;
@@ -74,7 +74,7 @@ int parseproduct()
 int parsefactor()
 {
     int nb = 0;
-    if (*s >= '0' && *s <= '9')
+    if (isdigit(*s))
         return (*s++ - '0');
     else if (*s == '(')
     {
